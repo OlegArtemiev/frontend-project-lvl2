@@ -8,7 +8,7 @@
   "description": "[![Actions Status](https://github.com/OlegArtemiev/frontend-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/OlegArtemiev/frontend-project-lvl2/actions)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest"
   },
   "repository": {
     "type": "git",
@@ -28,6 +28,7 @@
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "jest": "^27.0.6"
+    "eslint-plugin-jest": "^24.4.0",
+    "jest": "^27.1.0"
   }
 }
