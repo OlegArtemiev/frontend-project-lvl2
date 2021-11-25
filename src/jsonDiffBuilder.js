@@ -1,56 +1,45 @@
 import _ from 'lodash';
+import format from './formatters.js';
 
-const added = 'added';
-const deleted = 'deleted';
-const changed = 'changed';
-const unchanged = 'unchanged';
-const prefixUnchanged = '    ';
-const prefixAdded = '  + ';
-const prefixDeleted = '  - ';
-
-const genDiff = (data1, data2) => {
-  const keys1 = _.keys(data1);
-  const keys2 = _.keys(data2);
-  const keys = _.union(keys1, keys2);
-
-  const result = keys.reduce((acc, key) => {
+const buildAst = (data1, data2) => {
+  const keys = _.sortBy(_.union(_.keys(data1), _.keys(data2)));
+  const func = (key) => {
+    if ((data1[key] instanceof Object) && (data2[key] instanceof Object)) {
+      return {
+        type: 'compare',
+        key,
+        newValue: buildAst(data1[key], data2[key]),
+      };
+    }
     if (!_.has(data1, key)) {
-      return { ...acc, [key]: added };
+      return {
+        type: 'added',
+        key,
+        newValue: data2[key],
+      };
     }
     if (!_.has(data2, key)) {
-      return { ...acc, [key]: deleted };
+      return {
+        type: 'deleted',
+        key,
+        oldValue: data1[key],
+      };
     }
-    if (data1[key] !== data2[key]) {
-      return { ...acc, [key]: changed };
+    if (data1[key] === data2[key]) {
+      return {
+        type: 'unmodified',
+        key,
+        oldValue: data1[key],
+      };
     }
-    return { ...acc, [key]: unchanged };
-  }, {});
-
-  return result;
+    return {
+      type: 'modified',
+      key,
+      oldValue: data1[key],
+      newValue: data2[key],
+    };
+  };
+  return keys.map(func);
 };
 
-const genDiffString = (data1, data2) => {
-  const diff = genDiff(data1, data2);
-  const sortedKeys = (_.sortBy(_.keys(diff)));
-  const resultArr = sortedKeys.flatMap((key) => {
-    const item1 = `${key}: ${data1[key]}`;
-    const item2 = `${key}: ${data2[key]}`;
-    const diffValue = diff[key];
-
-    if (diffValue === unchanged) {
-      return `${prefixUnchanged}${item1}`;
-    }
-
-    if (diffValue === added) {
-      return `${prefixAdded}${item2}`;
-    }
-    if (diffValue === deleted) {
-      return `${prefixDeleted}${item1}`;
-    }
-    return [`${prefixDeleted}${item1}`, `${prefixAdded}${item2}`];
-  });
-
-  return ['{', ...resultArr, '}'].join('\n');
-};
-
-export { genDiff, genDiffString };
+export default (data1, data2, formatType) => format(buildAst(data1, data2), formatType);
