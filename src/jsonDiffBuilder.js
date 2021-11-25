@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import format from './formatters.js';
+import format from './formatters';
 
 const buildAst = (data1, data2) => {
   const keys = _.sortBy(_.union(_.keys(data1), _.keys(data2)));
