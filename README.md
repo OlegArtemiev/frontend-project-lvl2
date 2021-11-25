@@ -13,3 +13,6 @@
 
 **Flat file comparison (yaml)**
 [![asciicast](https://asciinema.org/a/7POaQnSKwlYiQnhfFYZI9qbxw.svg)](https://asciinema.org/a/7POaQnSKwlYiQnhfFYZI9qbxw)
+
+**Finding differences for files with a nested structure**
+[![asciicast](https://asciinema.org/a/8EQtYSR8CeVEKiQr7FqJPLQH2.svg)](https://asciinema.org/a/8EQtYSR8CeVEKiQr7FqJPLQH2)
