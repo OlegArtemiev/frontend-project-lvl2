@@ -16,3 +16,6 @@
 
 **Finding differences for files with a nested structure**
 [![asciicast](https://asciinema.org/a/8EQtYSR8CeVEKiQr7FqJPLQH2.svg)](https://asciinema.org/a/8EQtYSR8CeVEKiQr7FqJPLQH2)
+
+**plain format**
+[![asciicast](https://asciinema.org/a/4EDQrP6FMamR2Qso6S5dmkGLM.svg)](https://asciinema.org/a/4EDQrP6FMamR2Qso6S5dmkGLM)
