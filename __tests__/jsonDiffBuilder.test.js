@@ -10,7 +10,7 @@ const getFixturePath = (fileName) => path.join(__dirname, '..', '__fixtures__', 
 const readFile = (fileName) => readFileSync(getFixturePath(fileName), 'utf-8');
 
 const inputFormats = ['json', 'yaml', 'yml'];
-const outputFormats = ['stylish', 'plain'];
+const outputFormats = ['stylish', 'plain', 'json'];
 inputFormats.forEach((format) => {
   test.each(outputFormats)(`genDiff inputFormat: ${format} outputFormat: %s`, (outputFormat) => {
     const expectedResult = readFile(`expected_${outputFormat}`);
